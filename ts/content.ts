@@ -26,21 +26,17 @@ export default class Content {
         // URL paraméterek (aInput, bInput) ellenőrzése,  kiolvasása:
         const query: ParsedUrlQuery = url.parse(req.url as string, true).query;
         // ha aInput paraméter nincs vagy aInput beviteli mező üres, akkor legyen 5, egyébként konvertáljuk számra:
-        const a: number = query.aInput === undefined || query.aInput === "" ? 5 : parseFloat(query.aInput as string);
-        // ha bInput paraméter nincs vagy bInput beviteli mező üres, akkor legyen 6, egyébként konvertáljuk számra:
-        const b: number = query.bInput === undefined || query.bInput === "" ? 6 : parseFloat(query.bInput as string);
+        const x: number = query.xInput === undefined || query.xInput === "" ? 5 : parseFloat(query.xInput as string);
 
-        res.write("<p>a= ");
-        res.write(`<input type='number' name='aInput' value=${a} onChange='this.form.submit();'>`);
+        res.write("<p>x= ");
+        res.write(`<input type='number' name='xInput' value=${x} onChange='this.form.submit();'>`);
         res.write("</p>");
-        res.write("<p>b= ");
-        res.write(`<input type='number' name='bInput' value=${b} onChange='this.form.submit();'>`);
-        res.write("</p>");
-        let terulet: number; // deklaráció
-        terulet = a * b; // értékadás
-        const kerulet: number = 2 * (a + b); // definíció = deklaráció + értékadás
-        res.write(`<p>T=${terulet}</p>`);
-        res.write(`<p>K=${kerulet}</p>`);
+        let faktor: number = 1;
+        for (let i: number = 2; i < x; i++) {
+            faktor = faktor * i;
+        }
+        res.write(`${x}! = ${faktor}`);
+
         res.write("</form></body>");
         res.write("</html>");
         res.end();

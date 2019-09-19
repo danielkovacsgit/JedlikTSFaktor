@@ -16,19 +16,15 @@ class Content {
         res.write("<body><form style = 'font-family:Courier; font-size:24px'>");
         res.write("<h1>Szám faktoriálisa</h1>");
         const query = url.parse(req.url, true).query;
-        const a = query.aInput === undefined || query.aInput === "" ? 5 : parseFloat(query.aInput);
-        const b = query.bInput === undefined || query.bInput === "" ? 6 : parseFloat(query.bInput);
-        res.write("<p>a= ");
-        res.write(`<input type='number' name='aInput' value=${a} onChange='this.form.submit();'>`);
+        const x = query.xInput === undefined || query.xInput === "" ? 5 : parseFloat(query.xInput);
+        res.write("<p>x= ");
+        res.write(`<input type='number' name='xInput' value=${x} onChange='this.form.submit();'>`);
         res.write("</p>");
-        res.write("<p>b= ");
-        res.write(`<input type='number' name='bInput' value=${b} onChange='this.form.submit();'>`);
-        res.write("</p>");
-        let terulet;
-        terulet = a * b;
-        const kerulet = 2 * (a + b);
-        res.write(`<p>T=${terulet}</p>`);
-        res.write(`<p>K=${kerulet}</p>`);
+        let faktor = 1;
+        for (let i = 2; i < x; i++) {
+            faktor = faktor * i;
+        }
+        res.write(`${x}! = ${faktor}`);
         res.write("</form></body>");
         res.write("</html>");
         res.end();
